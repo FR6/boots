@@ -81,7 +81,7 @@ Boots is file based.
 			},
 			"repositories": [{
 				"type": "git",
-				"url": "git@github.com:CloudRaker/boots.git"		
+				"url": "git@github.com:fr6/boots.git"		
 			}],
 			...
 		}
@@ -96,19 +96,6 @@ Boots is file based.
 		)
 
 	$ composer dump-autoload
-	
-- Install Twitter Bootstrap in public/bower_components/
-
-		$ bower install bootstrap#3.1.1 -S
-
-- Publish package assets and configuration files
-
-		$ php artisan asset:publish cloudraker/boots
-		$ php artisan config:publish cloudraker/boots
-
-# Getting started
-
-- If necessary, edit the boots config file (app/config/packages/cloudraker/boots/boots.php).
 
 - Create basic directories
 
@@ -120,6 +107,19 @@ Boots is file based.
 		public/img/boots/designs/
 
 		Note: The "css/boots" and "js/boots" could have been anywhere (see the config file).
+	
+- Install Twitter Bootstrap in public/bower_components/
+
+		$ bower install bootstrap#3.3.1 -S
+
+- Publish package assets and configuration files
+
+		$ php artisan asset:publish cloudraker/boots
+		$ php artisan config:publish cloudraker/boots
+
+# Getting started
+
+- If necessary, edit the boots config file (app/config/packages/cloudraker/boots/boots.php).
 
 - Create your first component
 
