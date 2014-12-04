@@ -5,7 +5,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, user-scalable=no">
 	<meta name="description" lang="en" content="" />
-	<meta name="robots" content="index, follow" />
+	<meta name="robots" content="noindex, nofollow" />
 	<!--link rel="shortcut icon" href="favicon.ico" /-->
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
 	{{ HTML::style('packages/cloudraker/boots/css/index.css') }}
