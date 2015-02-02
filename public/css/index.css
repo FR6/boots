@@ -1,15 +1,1 @@
-#boots {
-  background-color: #E1E1E1;
-  overflow: hidden;
-  padding: 0 15px;
-}
-#boots .sidebar {
-  margin-top: 20px;
-}
-#boots .main .component {
-  clear: both;
-  margin-bottom: 30px;
-}
-#boots .main .component .content {
-  display: block;
-}
+#boots{background-color:#e1e1e1;overflow:hidden;padding:0 15px}#boots .sidebar{margin-top:20px}#boots .main .component{clear:both;margin-bottom:30px}#boots .main .component .content{display:block}#boots .boots-colors .item{width:200px;float:left;margin-right:25px;margin-bottom:25px}#boots .boots-colors .item .color{height:50px;border-radius:5px 5px 0 0}#boots .boots-colors .item .html{width:100%;border-left:1px solid #d3d3d3;border-right:1px solid #d3d3d3;padding:0 10px}#boots .boots-colors .item .less{width:100%;border-left:1px solid #d3d3d3;border-right:1px solid #d3d3d3;padding:0 10px;border-bottom:1px solid #d3d3d3;border-radius:0 0 5px 5px;padding-bottom:5px}

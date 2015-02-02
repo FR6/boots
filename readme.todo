@@ -5,6 +5,12 @@
 
  ✔ Allow to create page without base component @done (15-02-02 12:50)
 
+ ☐ gruntfile
+     ☐ less
+ ☐ refactoring css
+ ✔ update bootstrap @done (15-02-02 13:28)
+ ✔ update jquery @done (15-02-02 13:28)
+
  ✔ Remove controls concept @done (14-01-10 11:20)
  ✔ Replace "script" by laravel shortcut @done (14-01-10 11:20)
  ☐ Admin for applying settings to components

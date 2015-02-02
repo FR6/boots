@@ -70,6 +70,7 @@ $colors = Config::get('boots::boots.tags_colors');
 			<?php
 			//dd($packagejson->version);
 			?>
+			<!--
 			<ul>
 				@if(isset($packagejson['version']))
 					<li>Version: {{$packagejson['version']}}</li>
@@ -92,6 +93,7 @@ $colors = Config::get('boots::boots.tags_colors');
 			<ul>
 				<li><a href="{{{ URL::asset('files/sources.zip') }}}">sources.zip</a></li>	
 			</ul>
+			-->
 
 		 	<?php
 		 	#
