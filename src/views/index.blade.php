@@ -101,36 +101,38 @@ $colors = Config::get('boots::boots.tags_colors');
 			@foreach($groups as $groupname => $gr)
 				
 				@foreach($gr as $c)
-					<div class="component">
-						<a name="{{ $c['name'] }}"></a>
-						<div class="page-header">
-							<h1>
-								{{ $c['name'] }}
-								@if($c['page']['php'])
-									<small><a href="{{ URL::to("boots/{$c['name']}") }}">Standalone page</a></small>
-								@endif							
-							</h1>
-							@if($c['doc'])
-								<div class="well well-sm">
-									<pre>
-										<?php 
-										//note Strangely if I dont put a \n it will have tabs in the first row...
-										echo "\n".file_get_contents(app_path()."/views/boots/docs/{$c['name']}.md"); 
-										?>
-									</pre>
-								</div>
-							@endif
-						</div>						
-						<div class="content" style="position: relative; min-height:100px; overflow:hidden;">
-							@include($c['view'])
+					@if($c['base'])
+						<div class="component">
+							<a name="{{ $c['name'] }}"></a>
+							<div class="page-header">
+								<h1>
+									{{ $c['name'] }}
+									@if($c['page']['php'])
+										<small><a href="{{ URL::to("boots/{$c['name']}") }}">Standalone page</a></small>
+									@endif							
+								</h1>
+								@if($c['doc'])
+									<div class="well well-sm">
+										<pre>
+											<?php 
+											//note Strangely if I dont put a \n it will have tabs in the first row...
+											echo "\n".file_get_contents(app_path()."/views/boots/docs/{$c['name']}.md"); 
+											?>
+										</pre>
+									</div>
+								@endif
+							</div>						
+							<div class="content" style="position: relative; min-height:100px; overflow:hidden;">
+								@include($c['view'])
+							</div>
+							<?php /*
+							<div class="controls">
+								@if($c['controls']['php'])
+									@include("boots.controls.{$c['name']}")
+								@endif
+							</div> */ ?>					
 						</div>
-						<?php /*
-						<div class="controls">
-							@if($c['controls']['php'])
-								@include("boots.controls.{$c['name']}")
-							@endif
-						</div> */ ?>					
-					</div>
+					@endif
 				@endforeach
 				
 			@endforeach

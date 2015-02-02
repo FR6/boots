@@ -1,6 +1,9 @@
  ☐ allow Laravel 5
    ✔ update composer.json @done (15-02-01 22:51)
+   ☐ refactoring package source
    ☐ update documentation
+
+ ✔ Allow to create page without base component @done (15-02-02 12:50)
 
  ✔ Remove controls concept @done (14-01-10 11:20)
  ✔ Replace "script" by laravel shortcut @done (14-01-10 11:20)

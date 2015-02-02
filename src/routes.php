@@ -1,5 +1,6 @@
 <?php
 
+//deprecated
 function detect_component($filename){
 
 	$base_path = base_path();
@@ -26,6 +27,36 @@ function detect_component($filename){
     );
 }
 
+function detectComponent($name){
+
+	$base_path = base_path();
+	$path_to_assets = Config::get('boots::boots.path_assets');
+
+	return array(
+		'name' 		=> $name,
+		'base' 		=> file_exists("{$base_path}/app/views/boots/{$name}.blade.php"),
+    	'page' 		=> array(
+    		'js' 	=> file_exists("{$base_path}/public/{$path_to_assets}js/boots/{$name}-page.js"),
+    		'php' 	=> file_exists("{$base_path}/app/views/boots/pages/{$name}.blade.php")
+    	),
+    	'doc' 		=> file_exists("{$base_path}/app/views/boots/docs/{$name}.md"),
+    	'view' 		=> "boots.{$name}",		            	
+    	'js' 		=> file_exists("{$base_path}/public/{$path_to_assets}js/boots/{$name}.js")
+	);
+}
+
+function detectComponents($components_name){
+		
+	$components = array();
+
+	foreach($components_name as $name){
+
+		$components[] = detectComponent($name);
+	}
+
+	return $components;
+}
+
 // Allow to sort designs and components
 function sort_by_name($a, $b){
 
@@ -35,6 +66,7 @@ function sort_by_name($a, $b){
 	return ($a['name'] < $b['name']) ? -1 : 1;
 }
 
+//deprecated
 function load_components(){
 
 	//List components
@@ -44,7 +76,7 @@ function load_components(){
 
 	if($handle = opendir(base_path().'/app/views/boots/')){
 
-		$invalid_files = array('.', '..', '.DS_Store', '._.DS_Store', 'controls', 'pages', 'docs');
+		$invalid_files = array('.', '..', '.DS_Store', '._.DS_Store', 'controls', 'pages', 'docs', 'layouts');
 	    
 	    while(false !== ($entry = readdir($handle))){
 
@@ -67,6 +99,36 @@ function load_components(){
 	$components = $settings->apply('components', $components);
 
 	usort($components, 'sort_by_name');
+
+	return $components;
+}
+
+function scanComponents($path){
+
+	// List components
+
+	$components = array();
+
+	if($handle = opendir($path)){
+
+		$invalid_files = array('.', '..', '.DS_Store', '._.DS_Store', 'controls', 'pages', 'docs', 'layouts');
+	    
+	    while(false !== ($entry = readdir($handle))){
+
+	    	if(!in_array($entry, $invalid_files)){
+
+	    		if(strpos($entry, '._') !== 0){ //File starting with ."_"
+
+	    			$name = str_replace('.blade.php', '', $entry);
+
+	            	//$components[] = detect_component($entry);
+	            	$components[] = $name;
+	    		}	        	
+	        }
+	    }
+	    closedir($handle);
+	}
+	//dd($components);
 
 	return $components;
 }
@@ -110,7 +172,27 @@ Route::group(array('before' => 'lazyauth', 'prefix' => 'boots'), function(){
 
 	Route::get('/', function(){
 
-		$components = load_components();
+		//$components = load_components();
+		$componentsBase = scanComponents(base_path().'/app/views/boots/');
+		$componentsPage = scanComponents(base_path().'/app/views/boots/pages');
+
+		$components = array_merge($componentsBase, $componentsPage);
+		//dd($components);
+
+		// Detect components
+
+		$components = detectComponents($components);
+		//dd($components);
+
+		// Apply settings
+
+		$settings = new Setting();
+		$components = $settings->apply('components', $components);
+		usort($components, 'sort_by_name');
+		//dd($components);		
+
+		//
+
 		$components2 = $components;
 
 		// Components into groups
@@ -145,6 +227,8 @@ Route::group(array('before' => 'lazyauth', 'prefix' => 'boots'), function(){
 		foreach($components2 as $c){
 			$groups[''][] = $c;
 		}
+
+		//
 
 		$designs = load_designs();
 
@@ -206,32 +290,21 @@ Route::group(array('before' => 'lazyauth', 'prefix' => 'boots'), function(){
 
 	Route::get('{item}', function($item){
 
-		$filename = "{$item}.blade.php";
+		$component = detectComponent($item);
+		//dd($component);
 
-		// Verify if this component exist
-		if(!file_exists(base_path()."/app/views/boots/{$filename}")){
-			
-			App::abort(404);
-
-		}else{
-			
-			$component = detect_component($filename);
-			//dd($component);
+		if($component['base'] || $component['page']['php']){
 
 			// View overwriten?
 
-			//if(file_exists(base_path()."/app/views/boots/pages/{$filename}")){
 			if($component['page']['php']){
-
 				return View::make("boots.pages.{$item}", compact('component'));
-			
 			}else{
-
 				return View::make('boots::page', compact('component'));			
-			}			
+			}	
+
+		} else {
+			App::abort(404);
 		}
 	});
-
-	//todo /test
-	
 });
