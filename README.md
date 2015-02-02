@@ -42,7 +42,7 @@ Each component is decoupled from the page layout and is defined by:
 
 - PHP
 	- Composer
-	- Laravel 4
+	- Laravel 4+
 - Bower
 	- Twitter Bootstrap (not required)
 - Grunt (not required)
@@ -108,7 +108,7 @@ Boots is file based.
 
 		Note: The "css/boots" and "js/boots" could have been anywhere (see the config file).
 	
-- Install Twitter Bootstrap in public/bower_components/
+- Install Twitter Bootstrap in public/bower_components/ (not required)
 
 		$ bower install bootstrap#3.3.1 -S
 
