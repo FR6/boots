@@ -139,7 +139,7 @@ function load_designs(){
 
 	if($handle = opendir(base_path().'/public/'.Config::get('boots::boots.path_designs'))){
 
-		$invalid_files = array('.', '..', '.DS_Store', '._.DS_Store');
+		$invalid_files = array('.', '..', '.DS_Store', '._.DS_Store', '.gitkeep');
 	    
 	    while(false !== ($entry = readdir($handle))){
 
@@ -175,10 +175,14 @@ Route::group(array('before' => 'lazyauth', 'prefix' => 'boots'), function(){
 		//$components = load_components();
 		$componentsBase = scanComponents(base_path().'/app/views/boots/');
 		$componentsPage = scanComponents(base_path().'/app/views/boots/pages');
+		//dd($componentsBase);
 
+		// Merge components
 		$components = array_merge($componentsBase, $componentsPage);
 		//dd($components);
-
+		$components = array_unique($components); //remove duplicates (watch out we loose the index)
+		//dd($components);
+	
 		// Detect components
 
 		$components = detectComponents($components);

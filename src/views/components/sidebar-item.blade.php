@@ -10,7 +10,7 @@
 	</a>
 @else
 	<a class="list-group-item" href="{{ URL::to("boots/{$item['name']}") }}">
-		{{ $item['name'] }} !! 
+		{{ $item['name'] }} &#x25B2;
 		@if($item['status'] != "0")									
 			<span class="label label-{{ $colors[intval($item['color'])] }} pull-right">{{ $status[intval($item['status'])] }}</span>
 		@endif

@@ -46,7 +46,8 @@ $colors = Config::get('boots::boots.tags_colors');
 				</div>
 			@endforeach
 
-			<?php /*
+			<?php 
+			/*
 			<ul>
 			@foreach($components as $c)		
 				<li>{{ $c['name'] }}</li>
@@ -99,6 +100,7 @@ $colors = Config::get('boots::boots.tags_colors');
 		 	#
 		 	# Components
 		 	#
+		 	//dd($groups);
 		 	?>
 			@foreach($groups as $groupname => $gr)
 				
